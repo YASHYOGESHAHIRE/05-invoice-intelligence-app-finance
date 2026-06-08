@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .shimmer-ai {
+      background: linear-gradient(90deg, #645efb, #0c9488, #645efb);
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+    /* Hide scrollbars but keep functionality */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "tertiary-fixed": "#89f5e7",
+                  "inverse-primary": "#bec6e0",
+                  "outline-variant": "#c6c6cd",
+                  "surface-container-low": "#eff4ff",
+                  "on-tertiary-fixed": "#00201d",
+                  "surface-dim": "#cbdbf5",
+                  "on-error-container": "#93000a",
+                  "on-tertiary": "#ffffff",
+                  "background": "#f8f9ff",
+                  "secondary-container": "#645efb",
+                  "surface": "#f8f9ff",
+                  "primary-fixed-dim": "#bec6e0",
+                  "inverse-surface": "#213145",
+                  "on-secondary-fixed-variant": "#3323cc",
+                  "on-secondary": "#ffffff",
+                  "surface-container": "#e5eeff",
+                  "on-primary-container": "#7c839b",
+                  "primary-container": "#131b2e",
+                  "inverse-on-surface": "#eaf1ff",
+                  "on-surface-variant": "#45464d",
+                  "tertiary": "#000000",
+                  "on-surface": "#0b1c30",
+                  "on-tertiary-container": "#0c9488",
+                  "outline": "#76777d",
+                  "surface-tint": "#565e74",
+                  "on-secondary-container": "#fffbff",
+                  "tertiary-container": "#00201d",
+                  "surface-container-lowest": "#ffffff",
+                  "on-error": "#ffffff",
+                  "secondary-fixed": "#e2dfff",
+                  "surface-container-highest": "#d3e4fe",
+                  "error-container": "#ffdad6",
+                  "tertiary-fixed-dim": "#6bd8cb",
+                  "on-primary-fixed-variant": "#3f465c",
+                  "secondary": "#4b41e1",
+                  "primary": "#000000",
+                  "on-primary": "#ffffff",
+                  "error": "#ba1a1a",
+                  "primary-fixed": "#dae2fd",
+                  "surface-container-high": "#dce9ff",
+                  "surface-bright": "#f8f9ff",
+                  "on-secondary-fixed": "#0f0069",
+                  "on-primary-fixed": "#131b2e",
+                  "secondary-fixed-dim": "#c3c0ff",
+                  "surface-variant": "#d3e4fe",
+                  "on-tertiary-fixed-variant": "#005049",
+                  "on-background": "#0b1c30"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "lg": "24px",
+                  "md": "16px",
+                  "container-max": "1440px",
+                  "sm": "8px",
+                  "xl": "32px",
+                  "gutter": "24px",
+                  "base": "4px",
+                  "margin": "32px",
+                  "xs": "4px"
+          },
+          "fontFamily": {
+                  "label-md": ["JetBrains Mono"],
+                  "headline-md": ["Inter"],
+                  "headline-lg-mobile": ["Inter"],
+                  "body-md": ["Inter"],
+                  "display-lg": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "label-sm": ["JetBrains Mono"],
+                  "headline-lg": ["Inter"],
+                  "body-lg": ["Inter"]
+          },
+          "fontSize": {
+                  "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden md:flex flex-col p-md bg-surface-container w-64 shadow-md border-r border-outline-variant">
+<div class="mb-xl px-sm">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="font-headline-md text-label-md font-black text-on-surface">Invoice Intelligence</h1>
+<p class="text-xs text-on-surface-variant">AI-Powered Finance</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-sm">
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">document_scanner</span>
+<span class="font-label-md text-label-md">Extraction</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md p-md bg-secondary-container text-on-secondary-container rounded-lg font-semibold shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+<span class="font-label-md text-label-md">Connections</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-lg mb-sm" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="md:pl-64 flex flex-col min-h-screen">
+<!-- TopNavBar Anchor -->
+<header class="bg-surface sticky top-0 z-30 w-full h-16 border-b border-outline-variant shadow-sm flex items-center px-lg">
+<div class="flex justify-between items-center w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-lg">
+<span class="md:hidden material-symbols-outlined cursor-pointer">menu</span>
+<h2 class="font-headline-md text-body-md font-bold text-primary">Settings &amp; Integrations</h2>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container-low px-md py-sm rounded-full border border-outline-variant focus-within:border-secondary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search settings..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-sm text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined p-sm text-on-surface-variant hover:text-primary transition-colors">help</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline object-cover" data-alt="A professional headshot of a middle-aged finance executive with a confident expression, set against a blurred, high-end modern office background. The lighting is soft and directional, emphasizing a clean and trustworthy corporate aesthetic. The color palette is composed of muted grays and crisp whites with a touch of deep blue, reflecting the brand's sophisticated and intelligent identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYGvYvMnt_oljxdq0_rWJ7y-jEVg_3Dpkox9WEgOLmlL4vxR8D7CWnC5p5Pd2DgSzxqXyW6f6ZkuA79MVCphSaFdbOel5PyOHoLLkflYfOYrKNy2ddQPUEZEvBSIoZvc5OLvLJTpvE8AxXAGBPoHYgYuFS7vzJszWfLAj7Y7B57f65Z8YGX7V0A992yfok9jaSUpMbFmx2euDnDGoCV4Ytht6OIh-aZb6aFHeD5DC_UUg98qienTXPMvwDuHqHDWQ86r7x9Omdqow"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 p-lg md:p-xl space-y-xl max-w-container-max mx-auto w-full">
+<!-- Section: Global Header & Quick Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Manage Workspace</h1>
+<p class="text-on-surface-variant font-body-md">Configure your AI extraction rules, team permissions, and third-party syncs.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-lg py-sm bg-surface-container text-on-surface border border-outline-variant rounded-lg font-medium hover:bg-surface-variant transition-all active:scale-95">
+            Export Config
+          </button>
+<button class="px-lg py-sm bg-secondary text-on-secondary rounded-lg font-medium hover:bg-secondary-container transition-all active:scale-95 flex items-center gap-sm shadow-md">
+<span class="material-symbols-outlined text-sm">save</span>
+            Save All Changes
+          </button>
+</div>
+</div>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Left Column: Core Settings (8 cols) -->
+<div class="lg:col-span-8 space-y-lg">
+<!-- Integration Hub -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex items-center justify-between mb-lg">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary">hub</span>
+<h3 class="font-headline-md text-body-lg font-bold">Integrations Hub</h3>
+</div>
+<span class="text-label-sm px-md py-xs bg-tertiary-fixed text-on-tertiary-fixed rounded-full">4 Active</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- QuickBooks -->
+<div class="p-md border border-outline-variant rounded-lg bg-surface flex items-center justify-between hover:border-secondary transition-colors group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-[#2CA01C]/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[#2CA01C]">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">QuickBooks</p>
+<p class="text-xs text-on-surface-variant">Last sync: 2h ago</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[10px] uppercase font-bold text-on-tertiary-container bg-tertiary-fixed-dim/20 px-xs py-[1px] rounded">Connected</span>
+<button class="text-xs font-bold text-secondary-fixed-dim hover:text-secondary underline">Configure</button>
+</div>
+</div>
+<!-- Xero -->
+<div class="p-md border border-outline-variant rounded-lg bg-surface flex items-center justify-between hover:border-secondary transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-[#13B5EA]/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[#13B5EA]">cloud_sync</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Xero</p>
+<p class="text-xs text-on-surface-variant">Cloud Accounting</p>
+</div>
+</div>
+<button class="px-md py-xs bg-secondary text-on-secondary text-sm rounded-lg hover:opacity-90">Connect</button>
+</div>
+<!-- SAP -->
+<div class="p-md border border-outline-variant rounded-lg bg-surface flex items-center justify-between hover:border-secondary transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-primary/5 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">corporate_fare</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">SAP ERP</p>
+<p class="text-xs text-on-surface-variant">Enterprise Ready</p>
+</div>
+</div>
+<button class="px-md py-xs bg-secondary text-on-secondary text-sm rounded-lg hover:opacity-90">Connect</button>
+</div>
+<!-- Slack -->
+<div class="p-md border border-outline-variant rounded-lg bg-surface flex items-center justify-between hover:border-secondary transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-[#4A154B]/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[#4A154B]">chat</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Slack</p>
+<p class="text-xs text-on-surface-variant">Real-time alerts</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[10px] uppercase font-bold text-on-tertiary-container bg-tertiary-fixed-dim/20 px-xs py-[1px] rounded">Connected</span>
+<button class="text-xs font-bold text-secondary-fixed-dim hover:text-secondary underline">Manage</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Automation Rules (AI Core) -->
+<section class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-lg bg-primary-container text-on-primary-container flex items-center justify-between">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary-fixed">psychology</span>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold">AI Automation Rules</h3>
+<p class="text-sm opacity-80">Define how the intelligence layer handles invoices.</p>
+</div>
+</div>
+<button class="px-md py-sm bg-tertiary-fixed text-on-tertiary-fixed font-bold rounded-lg text-sm hover:opacity-90 transition-all">
+                Add Rule
+              </button>
+</div>
+<div class="p-lg space-y-md">
+<!-- Rule 1 -->
+<div class="flex items-start gap-md p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="mt-1">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-bold text-on-surface">Threshold Approval</p>
+<span class="text-xs font-label-md bg-secondary-fixed-dim/20 text-on-secondary-fixed-variant px-sm py-xs rounded">High Priority</span>
+</div>
+<p class="text-sm text-on-surface-variant mt-1">If invoice total is <span class="font-label-md text-secondary"> &lt; $500.00 </span>, auto-approve and sync to QuickBooks.</p>
+</div>
+</div>
+<!-- Rule 2 -->
+<div class="flex items-start gap-md p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="mt-1">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-bold text-on-surface">Vendor Intelligence</p>
+<span class="text-xs font-label-md bg-surface-variant text-on-surface-variant px-sm py-xs rounded">Standard</span>
+</div>
+<p class="text-sm text-on-surface-variant mt-1">Always flag invoices from <span class="font-label-md text-error">New Vendors</span> for manual tax compliance review.</p>
+</div>
+</div>
+<div class="flex items-center justify-center p-md border-2 border-dashed border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<p class="text-sm font-bold text-on-surface-variant group-hover:text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">add_circle</span>
+                  Create customized workflow logic
+                </p>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-md text-body-lg font-bold mb-lg flex items-center gap-md">
+<span class="material-symbols-outlined text-error">security</span>
+              Security &amp; Access
+            </h3>
+<div class="space-y-lg">
+<div class="flex items-center justify-between p-md border-b border-outline-variant pb-md">
+<div>
+<p class="font-bold text-on-surface">Two-Factor Authentication</p>
+<p class="text-sm text-on-surface-variant">Secure your account with a secondary device.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-md border-b border-outline-variant pb-md">
+<div>
+<p class="font-bold text-on-surface">SSO Configuration</p>
+<p class="text-sm text-on-surface-variant">Enable SAML/Okta for enterprise-wide login.</p>
+</div>
+<button class="text-secondary font-bold text-sm hover:underline">Setup SSO</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Settings (4 cols) -->
+<div class="lg:col-span-4 space-y-lg">
+<!-- Team Management Card -->
+<section class="bg-surface border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-md text-body-lg font-bold mb-md">Team Members</h3>
+<p class="text-sm text-on-surface-variant mb-lg">Manage permissions and invite finance controllers.</p>
+<div class="space-y-md mb-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<img alt="Sarah Jenkins" class="w-10 h-10 rounded-full object-cover" data-alt="A professional close-up portrait of a female financial analyst with glasses and a friendly, intelligent smile. She is in a high-tech corporate environment with soft, cool-toned lighting that reflects a sophisticated and professional light-mode aesthetic. The composition is clean and focused, using a professional color palette of navy, soft blue, and bright whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACNhz23Zgn5M3gJ-p23lBEN95e9uR4EF-BCNNWqNw_PbwGX5ivvSktW1TbZw850GNzvyQFpXte14TFycDR_Nfo47M5r2Aq43GQxl2F-L8xT81VgsKcDszIgBgOcAojNyfXADH2ZjZ3nswKrfJ1FjWuzKxvBIzq0jN5FdZKRfeD9UVHkyvudLbB0e2AVhdI2bJ4lVPYyVxwTfQvpZkOsNAzDlcpDBwfJlvQlM5avM5UTqd4l-xC-0x6dsHwGzy5fov6CLuzl7n51s8"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Admin</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<img alt="Marcus Chen" class="w-10 h-10 rounded-full object-cover" data-alt="A high-quality studio portrait of a young male professional in a modern business suit. The background is a clean, neutral gradient that supports a professional light-mode UI. The lighting is balanced and crisp, projecting trust and intelligence. The aesthetic is modern corporate minimalism with a palette of whites, light grays, and subtle indigo accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6IH9PFXiCs_j4MxTkzWU_bzIk0rrsTpb3m1LYDbgWBuyxJbhr8uyr7H8Pwsjk2U5WANg9aluod-T5nHfS_57bTCcyexFRVCLakHzHRmRIanjCVqKaNjgXESBNY-nRZ-x6-mzt8_MyeDakxkid5WfZCVkJFhBxIPcTLE4sP5_In1JUc1X3Jxq2Eu6-xB9NR_axf9dwoj4505qZdpS5-s3WYjgN1bof21EbPx1bw_FFMI8KctBs-Jbx9-Sbu2xi5NPZYVyP42vXhUw"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Marcus Chen</p>
+<p class="text-xs text-on-surface-variant">Auditor</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-body-sm font-medium text-on-surface-variant block">Invite by email</label>
+<div class="flex gap-sm">
+<input class="flex-1 rounded-lg border-outline-variant focus:border-secondary focus:ring-secondary text-sm" placeholder="colleague@company.com" type="email"/>
+<button class="bg-primary text-on-primary px-md py-sm rounded-lg font-bold text-xs hover:opacity-90">Send</button>
+</div>
+</div>
+</section>
+<!-- AI Status / System Health -->
+<div class="bg-surface-container-high border border-outline-variant rounded-xl p-lg relative overflow-hidden group">
+<!-- Shimmer effect for "Intelligence" -->
+<div class="absolute inset-0 opacity-10 pointer-events-none shimmer-ai"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-secondary animate-pulse" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h4 class="font-bold text-on-surface">AI System Health</h4>
+</div>
+<div class="space-y-md">
+<div>
+<div class="flex justify-between text-xs font-label-md mb-base">
+<span class="text-on-surface-variant">Processing Throughput</span>
+<span class="text-on-surface font-bold">98.4%</span>
+</div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container shimmer-ai" style="width: 98%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-label-md mb-base">
+<span class="text-on-surface-variant">Tax Compliance Accuracy</span>
+<span class="text-on-surface font-bold">99.9%</span>
+</div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 99%;"></div>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant italic">System operating at peak intelligence levels.</p>
+</div>
+</div>
+</div>
+<!-- Notification Preferences -->
+<section class="bg-surface border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-md text-body-lg font-bold mb-lg">Alert Channels</h3>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<input checked="" class="w-4 h-4 rounded border-outline-variant text-secondary" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface">In-app notifications</span>
+</div>
+<div class="flex items-center gap-md">
+<input checked="" class="w-4 h-4 rounded border-outline-variant text-secondary" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface">Email digests (Daily)</span>
+</div>
+<div class="flex items-center gap-md">
+<input class="w-4 h-4 rounded border-outline-variant text-secondary" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface">Slack Direct Messages</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer Anchor -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant py-lg mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin w-full max-w-container-max mx-auto gap-md">
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md font-bold text-on-surface">Invoice Intelligence</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024. All rights reserved.</p>
+</div>
+<div class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">API Documentation</a>
+</div>
+</div>
+</footer>
+</div>
+<!-- BottomNavBar Anchor (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface shadow-lg border-t border-outline-variant flex justify-around items-center px-md z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">document_scanner</span>
+<span class="text-[10px] font-medium">Scan</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+<span class="text-[10px] font-medium font-bold">Settings</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Account</span>
+</a>
+</nav>
+<script>
+    // Micro-interactions and interactive states
+    document.querySelectorAll('.active\\:scale-95').forEach(button => {
+      button.addEventListener('mousedown', () => {
+        button.style.transform = 'scale(0.95)';
+      });
+      button.addEventListener('mouseup', () => {
+        button.style.transform = 'scale(1)';
+      });
+      button.addEventListener('mouseleave', () => {
+        button.style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body></html>

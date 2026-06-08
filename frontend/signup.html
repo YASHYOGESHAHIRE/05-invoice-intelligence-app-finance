@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Create Account</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    body {
+
+      min-height: 100vh;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      background: #eef4ff;
+
+      font-family: 'Inter', sans-serif;
+
+      padding: 20px;
+    }
+
+    .card {
+
+      width: 100%;
+
+      max-width: 450px;
+
+      background: white;
+
+      border-radius: 24px;
+
+      padding: 36px;
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+
+      font-size: 32px;
+
+      font-weight: 800;
+
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+
+      color: #6b7280;
+
+      margin-bottom: 28px;
+    }
+
+    .field {
+
+      margin-bottom: 18px;
+    }
+
+    .field label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 14px;
+
+      font-weight: 600;
+    }
+
+    .field input {
+
+      width: 100%;
+
+      height: 50px;
+
+      border: 1.5px solid #d1d5db;
+
+      border-radius: 12px;
+
+      padding: 0 16px;
+
+      font-size: 15px;
+
+      outline: none;
+    }
+
+    .field input:focus {
+
+      border-color: #4b41e1;
+
+      box-shadow:
+        0 0 0 4px rgba(75,65,225,.12);
+    }
+
+    .btn {
+
+      width: 100%;
+
+      height: 52px;
+
+      border: none;
+
+      border-radius: 14px;
+
+      background: #4b41e1;
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .btn:disabled {
+
+      opacity: .7;
+    }
+
+    .error {
+
+      display: none;
+
+      background: #fff1f2;
+
+      color: #be123c;
+
+      border: 1px solid #fecdd3;
+
+      padding: 12px;
+
+      border-radius: 12px;
+
+      margin-bottom: 18px;
+    }
+
+    .success {
+
+      display: none;
+
+      background: #ecfdf5;
+
+      color: #047857;
+
+      border: 1px solid #a7f3d0;
+
+      padding: 12px;
+
+      border-radius: 12px;
+
+      margin-bottom: 18px;
+    }
+
+    .footer {
+
+      margin-top: 22px;
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #6b7280;
+    }
+
+    .footer a {
+
+      color: #4b41e1;
+
+      text-decoration: none;
+
+      font-weight: 600;
+    }
+
+  </style>
+
+</head>
+
+<script>
+
+  Auth.redirectIfAuthenticated();
+
+</script>
+
+
+<body>
+
+<div class="card">
+
+  <h1>Create Account</h1>
+
+  <p class="subtitle">
+    Start using Invoice Intelligence
+  </p>
+
+  <div class="error" id="errorBox"></div>
+
+  <div class="success" id="successBox">
+    Account created successfully.
+  </div>
+
+  <form id="signupForm">
+
+    <div class="field">
+
+      <label>Name</label>
+
+      <input
+        type="text"
+        id="name"
+        required
+      />
+
+    </div>
+
+    <div class="field">
+
+      <label>Email</label>
+
+      <input
+        type="email"
+        id="email"
+        required
+      />
+
+    </div>
+
+    <div class="field">
+
+      <label>Password</label>
+
+      <input
+        type="password"
+        id="password"
+        required
+      />
+
+    </div>
+
+    <button
+      type="submit"
+      class="btn"
+      id="signupBtn"
+    >
+      Create Account
+    </button>
+
+  </form>
+
+  <div class="footer">
+
+    Already have an account?
+
+    <a href="login.html">
+      Login
+    </a>
+
+  </div>
+
+</div>
+
+<script src="./js/auth.js"></script>
+
+<script>
+
+document
+  .getElementById('signupForm')
+  .addEventListener('submit', async e => {
+
+    e.preventDefault();
+
+    const btn =
+      document.getElementById('signupBtn');
+
+    const errorBox =
+      document.getElementById('errorBox');
+
+    const successBox =
+      document.getElementById('successBox');
+
+    errorBox.style.display = 'none';
+
+    btn.disabled = true;
+
+    btn.innerText = 'Creating...';
+
+    try {
+
+      await Auth.signup({
+
+        name:
+          document.getElementById('name').value,
+
+        email:
+          document.getElementById('email').value,
+
+        password:
+          document.getElementById('password').value
+      });
+
+      successBox.style.display = 'block';
+
+      setTimeout(() => {
+
+        window.location.href =
+          'code.html';
+
+      }, 1200);
+
+    } catch (err) {
+
+      errorBox.innerText = err.message;
+
+      errorBox.style.display = 'block';
+
+    } finally {
+
+      btn.disabled = false;
+
+      btn.innerText = 'Create Account';
+    }
+  });
+
+</script>
+
+</body>
+</html>
+

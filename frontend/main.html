@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Invoice Intelligence Dashboard</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#89f5e7",
+                    "inverse-primary": "#bec6e0",
+                    "outline-variant": "#c6c6cd",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-fixed": "#00201d",
+                    "surface-dim": "#cbdbf5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "secondary-container": "#645efb",
+                    "surface": "#f8f9ff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed-variant": "#3323cc",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface-variant": "#45464d",
+                    "tertiary": "#000000",
+                    "on-surface": "#0b1c30",
+                    "on-tertiary-container": "#0c9488",
+                    "outline": "#76777d",
+                    "surface-tint": "#565e74",
+                    "on-secondary-container": "#fffbff",
+                    "tertiary-container": "#00201d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "surface-container-highest": "#d3e4fe",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#6bd8cb",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "secondary": "#4b41e1",
+                    "primary": "#000000",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container-high": "#dce9ff",
+                    "surface-bright": "#f8f9ff",
+                    "on-secondary-fixed": "#0f0069",
+                    "on-primary-fixed": "#131b2e",
+                    "secondary-fixed-dim": "#c3c0ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary-fixed-variant": "#005049",
+                    "on-background": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "md": "16px",
+                    "container-max": "1440px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "margin": "32px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .shimmer-gradient {
+            background: linear-gradient(90deg, #4b41e1, #0c9488, #4b41e1);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+    </style>
+</head>
+
+<script src="./js/auth.js"></script>
+
+<script>
+
+  Auth.protectRoute();
+
+  Auth.loadUser();
+
+</script>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen z-40 hidden md:flex flex-col p-md h-full w-64 bg-surface-container dark:bg-surface-container-low shadow-md">
+<div class="flex items-center gap-sm mb-xl px-sm">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary">analytics</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-on-surface leading-tight">Invoice</h1>
+<p class="font-label-md text-label-sm text-on-surface-variant">Intelligence</p>
+</div>
+</div>
+<button class="mb-xl w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-md rounded-lg font-semibold active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+<span>New Invoice</span>
+</button>
+<nav class="flex-1 space-y-xs">
+<!-- Overview (Active) -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg font-semibold transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">document_scanner</span>
+<span class="font-label-md text-label-md">Extraction</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Connections</span>
+</a>
+</nav>
+<div class="mt-auto space-y-xs border-t border-outline-variant pt-md">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<a href="#" onclick="Auth.logout()" class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant transition-all rounded-lg" > <span class="material-symbols-outlined"> logout </span> <span class="font-label-md text-label-md"> Sign Out </span> </a></a>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="md:ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="w-full h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm z-30 sticky top-0">
+<div class="flex justify-between items-center px-lg w-full max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-md md:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+<div class="hidden md:flex flex-1 items-center max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full text-body-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary-fixed transition-all" placeholder="Search invoices, reports, or vendors..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg ml-auto">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-sm">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a corporate executive in their late 30s, featuring soft office lighting and a clean, high-key white background. The subject is wearing a tailored navy blazer and has a confident, approachable expression, fitting a premium financial SaaS environment. The overall aesthetic is minimalist, modern, and trustworthy, with high clarity and balanced saturation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAN0OthfmX6lklMmAJVPIf8TzMREKo2_d1rbKdlo_QcTXvkFFyfAd7CXYeq8oqdsWSlY45EKHi8GWe4sAlzrTYRIjjAIrqN-WH1CFZ9y9tQl_KA9Yg3b0i82YSeaYCkazegL1OyClaG5UbHQGr0FfsW5SrQbUoCAgShYz3y9JekqcgFW7LKz7brIe5BZ345jMCv17YKxT8Jt1RvvRjjVhUUkomJJLaCF60AyzA8bDSJhDRdGxXlyO0Db-pSsNluqEQ4-bom1SW44U"/>
+<div class="hidden lg:block text-left">
+<p class="text-label-md font-bold text-on-surface leading-tight"><span id="userName" class="text-sm font-semibold" ></span></p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Financial Director</p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas Area -->
+<div class="p-lg md:p-xl flex-1 max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-lg gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Dashboard Overview</h2>
+<p class="text-on-surface-variant font-body-md mt-1">Real-time spend analytics and extraction performance.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm bg-surface-container-highest border border-outline-variant rounded-lg flex items-center gap-xs font-label-md text-label-md hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="px-md py-sm bg-secondary text-on-secondary rounded-lg flex items-center gap-xs font-label-md text-label-md shadow-md active:scale-98 transition-transform">
+<span class="material-symbols-outlined text-[20px]">file_upload</span>
+                        Upload Invoice
+                    </button>
+</div>
+</div>
+<!-- Bento Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<!-- Total Spend -->
+<div class="bg-surface p-lg rounded-xl shadow-[0px_4px_12px_rgba(15,23,42,0.04)] border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant">Total Spend</p>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="mt-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">$142,580.00</h3>
+<p class="mt-sm flex items-center gap-xs text-on-tertiary-container font-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +12.5% vs last month
+                        </p>
+</div>
+</div>
+<!-- Pending Invoices -->
+<div class="bg-surface p-lg rounded-xl shadow-[0px_4px_12px_rgba(15,23,42,0.04)] border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant">Pending Invoices</p>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">pending_actions</span>
+</div>
+</div>
+<div class="mt-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">24</h3>
+<p class="mt-sm flex items-center gap-xs text-error font-label-sm">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+                            4 Overdue
+                        </p>
+</div>
+</div>
+<!-- AI Accuracy Rate -->
+<div class="bg-surface p-lg rounded-xl shadow-[0px_4px_12px_rgba(15,23,42,0.04)] border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant">AI Accuracy Rate</p>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+</div>
+<div class="mt-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">99.4%</h3>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-md overflow-hidden">
+<div class="shimmer-gradient h-full rounded-full" style="width: 99.4%"></div>
+</div>
+</div>
+</div>
+<!-- Avg Processing Time -->
+<div class="bg-surface p-lg rounded-xl shadow-[0px_4px_12px_rgba(15,23,42,0.04)] border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface-variant">Avg. Processing</p>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</div>
+</div>
+<div class="mt-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">1.2s</h3>
+<p class="mt-sm flex items-center gap-xs text-on-tertiary-container font-label-sm">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                            0.4s improvement
+                        </p>
+</div>
+</div>
+</div>
+<!-- Asymmetric Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+<!-- Recent Activity (Large Column) -->
+<div class="lg:col-span-2 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-lg flex justify-between items-center border-b border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Activity</h3>
+<button class="text-secondary font-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-lowest text-on-surface-variant font-label-sm border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-medium">Invoice ID</th>
+<th class="px-lg py-md font-medium">Vendor</th>
+<th class="px-lg py-md font-medium">Date</th>
+<th class="px-lg py-md font-medium">Amount</th>
+<th class="px-lg py-md font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-lg py-md font-label-md text-on-surface">#INV-9421</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded-full flex items-center justify-center text-xs font-bold">AZ</div>
+<span class="text-body-sm font-medium">Amazon Web Services</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Oct 24, 2024</td>
+<td class="px-lg py-md text-body-sm font-bold text-on-surface">$12,450.00</td>
+<td class="px-lg py-md text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed/20 text-on-tertiary-fixed-variant">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-lg py-md font-label-md text-on-surface">#INV-9422</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded-full flex items-center justify-center text-xs font-bold">MS</div>
+<span class="text-body-sm font-medium">Microsoft Azure</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Oct 23, 2024</td>
+<td class="px-lg py-md text-body-sm font-bold text-on-surface">$8,120.00</td>
+<td class="px-lg py-md text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-800">Pending</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-lg py-md font-label-md text-on-surface">#INV-9423</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded-full flex items-center justify-center text-xs font-bold">SL</div>
+<span class="text-body-sm font-medium">Slack Technologies</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Oct 22, 2024</td>
+<td class="px-lg py-md text-body-sm font-bold text-on-surface">$2,400.00</td>
+<td class="px-lg py-md text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-error-container text-on-error-container">Overdue</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-lg py-md font-label-md text-on-surface">#INV-9424</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded-full flex items-center justify-center text-xs font-bold">GH</div>
+<span class="text-body-sm font-medium">GitHub Enterprise</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Oct 21, 2024</td>
+<td class="px-lg py-md text-body-sm font-bold text-on-surface">$5,600.00</td>
+<td class="px-lg py-md text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed/20 text-on-tertiary-fixed-variant">Paid</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- AI Insights (Sidebar Column) -->
+<div class="space-y-gutter">
+<!-- AI Insight Card 1 -->
+<div class="glass-effect rounded-xl border border-outline-variant p-lg shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px]">auto_awesome</span>
+</div>
+<div class="flex items-center gap-sm mb-md">
+<div class="p-xs bg-secondary-container rounded text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+</div>
+<h4 class="font-bold text-on-surface">Cash Flow Optimization</h4>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-relaxed mb-md">
+                            Our AI detected <span class="text-primary font-bold">3 duplicate vendor entries</span>. Consolidating these could save approximately $450/month in seat licenses.
+                        </p>
+<button class="w-full py-sm border border-secondary text-secondary rounded-lg text-label-md font-bold hover:bg-secondary-container/10 transition-colors">
+                            Apply Insight
+                        </button>
+</div>
+<!-- AI Insight Card 2 (Glassmorphism) -->
+<div class="bg-primary-container p-lg rounded-xl shadow-lg border border-primary relative overflow-hidden">
+<div class="flex items-center gap-sm mb-md">
+<div class="p-xs bg-tertiary-fixed rounded text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[20px]">trending_down</span>
+</div>
+<h4 class="font-bold text-on-primary">Predicted Savings</h4>
+</div>
+<div class="relative z-10">
+<p class="text-display-lg font-display-lg text-on-primary">$2.4k</p>
+<p class="text-body-sm text-on-primary-container">Possible tax reclamation identified in last month's utilities.</p>
+</div>
+<div class="mt-lg h-24 relative">
+<!-- Simplified Sparkline Pattern -->
+<div class="absolute inset-0 opacity-30 flex items-end gap-1">
+<div class="w-full bg-tertiary-fixed h-1/4 rounded-t-sm"></div>
+<div class="w-full bg-tertiary-fixed h-2/4 rounded-t-sm"></div>
+<div class="w-full bg-tertiary-fixed h-3/4 rounded-t-sm"></div>
+<div class="w-full bg-tertiary-fixed h-2/5 rounded-t-sm"></div>
+<div class="w-full bg-tertiary-fixed h-5/6 rounded-t-sm"></div>
+<div class="w-full bg-tertiary-fixed h-full rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- CTA Feature Card -->
+<div class="relative h-48 rounded-xl overflow-hidden shadow-md group cursor-pointer">
+<img alt="Invoice processing visualization" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-tech digital interface showing multiple translucent document frames being scanned by a vibrant laser line. The color palette features deep indigo, bright teal, and pure white light. The atmosphere is fast-paced, digital, and futuristic, conveying high-speed AI data processing in a clean and minimal laboratory aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmeoyaZ-wYQTxO6nnSjVddC7xVvOquxNkPdS7fNYwRZtiMIYAQ7DskAa5izNIw9vQOQ-X8g_IBEOCVjPAvotv9728DcXEsrKUpTWpBBV_JI_ETSz29i4S_MiCRSIkWfWuUs0h2loULLKPIs9fgVNkrhdCi4sBKY_686TQ-JaBiwmuOsQ2esLd7T5XskR_S5d9Fn_c-2ONTSorrXdT3CdEPqn2C9D3SygscnoIqj9S5eLetIgYyGb0Gl2LTvDK0DZX95CJsJZq0hcE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-lg flex flex-col justify-end">
+<h5 class="text-white font-bold text-headline-md leading-tight">Automation Lab</h5>
+<p class="text-white/70 text-body-sm">Configure your custom extraction rules.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-lg border-t border-outline-variant bg-surface-container-lowest dark:bg-surface-dim mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin w-full max-w-container-max mx-auto gap-md">
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md font-bold text-primary">Invoice Intelligence</span>
+<p class="text-on-surface-variant dark:text-outline-variant font-body-sm text-body-sm">© 2024. All rights reserved.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">API Documentation</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- FAB for mobile screens -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<script>
+        // Micro-interaction for hover effects on metric cards
+        document.querySelectorAll('.bg-surface').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease-out';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
